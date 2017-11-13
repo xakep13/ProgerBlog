@@ -3,6 +3,7 @@ using ProgerBlog.DAL.Entities;
 using ProgerBlog.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,25 @@ namespace ProgerBlog.DAL.Repositories
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public void Delete(ClientProfile item)
+        {
+           ClientProfile clientProfile= Database.ClientProfiles.Find(item);
+            if (clientProfile != null)
+                Database.ClientProfiles.Remove(clientProfile);
+        }
+
+        public void Delete(int id_item)
+        {
+            ClientProfile clientProfile = Database.ClientProfiles.Find(id_item);
+            if (clientProfile != null)
+                Database.ClientProfiles.Remove(clientProfile);
+        }
+
+        public void Update(ClientProfile item)
+        {
+            Database.Entry(item).State = EntityState.Modified;
         }
     }
 }

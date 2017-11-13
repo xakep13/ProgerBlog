@@ -16,3 +16,7 @@ c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\obj\Debug\ProgerBl
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\obj\Debug\ProgerBlog.BLL.csproj.CoreCompileInputs.cache
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\obj\Debug\ProgerBlog.BLL.dll
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\obj\Debug\ProgerBlog.BLL.pdb
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\bin\Debug\AutoMapper.dll
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\bin\Debug\Ninject.dll
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\bin\Debug\AutoMapper.xml
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.BLL\bin\Debug\Ninject.xml

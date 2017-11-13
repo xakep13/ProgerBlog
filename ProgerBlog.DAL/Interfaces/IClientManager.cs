@@ -10,5 +10,8 @@ namespace ProgerBlog.DAL.Interfaces
     public interface IClientManager : IDisposable
     {
         void Create(ClientProfile item);
+        void Delete(ClientProfile item);
+        void Delete(int id_item);
+        void Update(ClientProfile item);
     }
 }

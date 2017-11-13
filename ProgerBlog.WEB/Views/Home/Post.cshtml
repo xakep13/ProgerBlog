@@ -1,0 +1,36 @@
+﻿@model ProgerBlog.WEB.Models.PostViewModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+@section Header{
+    <header class="masthead" style="background-image: url('/Content/img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>@Model.Title</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by
+                            @Model.Author
+                            on @Model.Date
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <p>@Model.Text</p>
+            </div>
+        </div>
+    </div>
+</article>
+

@@ -19,6 +19,7 @@ namespace ProgerBlog.DAL.UnitOfWork
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
         private IClientManager clientManager;
+        private IPostManager postManager;
 
         public UnitOfWork(string connectionString)
         {
@@ -26,11 +27,17 @@ namespace ProgerBlog.DAL.UnitOfWork
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
             clientManager = new ClientManager(db);
+            postManager = new PostManager(db);
         }
 
         public ApplicationUserManager UserManager
         {
             get { return userManager; }
+        }
+
+        public IPostManager PostManager
+        {
+            get { return postManager; }
         }
 
         public IClientManager ClientManager
@@ -64,6 +71,7 @@ namespace ProgerBlog.DAL.UnitOfWork
                     userManager.Dispose();
                     roleManager.Dispose();
                     clientManager.Dispose();
+                    postManager.Dispose();
                 }
                 this.disposed = true;
             }

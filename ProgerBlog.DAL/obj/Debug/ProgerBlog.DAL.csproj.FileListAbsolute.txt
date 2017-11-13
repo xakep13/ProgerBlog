@@ -13,3 +13,5 @@ c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBl
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.csproj.CoreCompileInputs.cache
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.dll
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.pdb
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\AutoMapper.dll
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\AutoMapper.xml

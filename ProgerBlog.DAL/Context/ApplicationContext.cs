@@ -14,5 +14,7 @@ namespace ProgerBlog.DAL.Context
         public ApplicationContext(string conectionString) : base(conectionString) { }
 
         public DbSet<ClientProfile> ClientProfiles { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }

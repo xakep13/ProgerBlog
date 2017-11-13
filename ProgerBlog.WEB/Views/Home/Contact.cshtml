@@ -1,17 +1,72 @@
 ﻿@{
     ViewBag.Title = "Contact";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<!-- Page Header -->
+@section Header{
+    <header class="masthead" style="background-image: url('/Content/img/contact-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <h1>Звяжіться з нами</h1>
+                        <span class="subheading">Маєте питання? Я маю відповідь (можливо)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>Хочете зв'язатися зі мною? Заповніть форму нижче, щоб надіслати мені повідомлення, і я постараюся відповісти Вам протягом 24 годин!</p>
+            <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+            <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+            <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+            <form name="sentMessage" id="contactForm" novalidate>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Ім'я</label>
+                        <input type="text" class="form-control" placeholder="Ім'я" id="name" required data-validation-required-message="Будь ласка, введіть ваше ім'я.'">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="Email" id="email" required data-validation-required-message="Будь ласка, введіть ваш електроггий адрес">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Номер Телефону</label>
+                        <input type="tel" class="form-control" placeholder="Номер телефону" id="phone" required data-validation-required-message="Будь ласка, введіть ваш номер телефону.">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        <label>Повідомлення</label>
+                        <textarea rows="5" class="form-control" placeholder="Повідомлення" id="message" required data-validation-required-message="Будь ласка, введіть повідомлення"></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <br>
+                <div id="success"></div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary" id="sendMessageButton">Відправити</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section SendScript{
+    <!-- Contact Form JavaScript -->
+    <script src="/Content/js/jqBootstrapValidation.js"></script>
+    <script src="/Content/js/contact_me.js"></script>
+}

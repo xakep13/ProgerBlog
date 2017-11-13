@@ -9,6 +9,6 @@ namespace ProgerBlog.DAL.Entities
 {
     public class ApplicationRole : IdentityRole
     {
-
+       
     }
 }

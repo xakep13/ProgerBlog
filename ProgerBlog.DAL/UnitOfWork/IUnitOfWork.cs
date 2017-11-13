@@ -13,6 +13,7 @@ namespace ProgerBlog.DAL.UnitOfWork
         ApplicationUserManager UserManager { get; }
         IClientManager ClientManager { get; }
         ApplicationRoleManager RoleManager { get; }
+        IPostManager PostManager { get; }
         Task SaveAsync();
     }
 }
