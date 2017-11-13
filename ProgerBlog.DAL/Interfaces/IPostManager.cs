@@ -12,8 +12,9 @@ namespace ProgerBlog.DAL.Interfaces
         void Create(Post item);
         void Delete(Post item);
         void Update(Post item);
-        void Delete(int id_item);
+        void Delete(int? id_item);
         IEnumerable<Post> GetAll();
-        Post Get(int id_item);
+        Post Get(int? id_item);
+        
     }
 }

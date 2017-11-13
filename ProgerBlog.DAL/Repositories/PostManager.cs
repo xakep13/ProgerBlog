@@ -41,7 +41,7 @@ namespace ProgerBlog.DAL.Repositories
             Database.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id_item)
+        public void Delete(int? id_item)
         {
             Post post = Database.Posts.Find(id_item);
             if (post != null)
@@ -53,7 +53,7 @@ namespace ProgerBlog.DAL.Repositories
            return Database.Posts.ToList();
         }
 
-        public Post Get(int id_item)
+        public Post Get(int? id_item)
         {
             return Database.Posts.FirstOrDefault(p => p.Id == id_item);
         }

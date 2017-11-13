@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Редактировать";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model ProgerBlog.WEB.Models.PostViewModel
+
+
+<h2>Пост № @Model.Id</h2>
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        <p>
+            @Html.LabelFor(m => m.Title, "Заголовок")
+            <br />
+            @Html.TextAreaFor(m => m.Title, 10, 20, null)
+            
+        </p>
+        <p>
+            @Html.LabelFor(m => m.SubTitle, "ПідЗаголовок")
+            <br />
+            @Html.TextAreaFor(m => m.SubTitle, 10, 20, null)
+
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Author, "Автор")
+            <br />
+            @Html.EditorFor(m => m.Author)
+
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Text, "Текст")
+            <br />
+            @Html.TextAreaFor(m => m.Text, 10,50,null)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Date, "Дата")
+            <br />
+            @Html.EditorFor(m => m.Date)
+        </p>
+
+        <p><input type="submit" value="Відправити" /></p>
+    </fieldset>
+}

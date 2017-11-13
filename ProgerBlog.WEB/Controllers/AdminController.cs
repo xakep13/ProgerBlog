@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ProgerBlog.BLL.DTO;
+using ProgerBlog.BLL.Interfaces;
+using ProgerBlog.BLL.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,23 +9,26 @@ using System.Web.Mvc;
 
 namespace ProgerBlog.WEB.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
 
-        EventRepository repo;
+        IPostService repo;
 
-        public AdminController()
+        public AdminController(IPostService postService)
         {
-            repo = new EventRepository();
+            repo = postService;
         }
+
+        
 
 
         // GET: Admin
-        [Authorize(Roles = "admin")]
+        
         public ActionResult Index()
         {
-            var _events = repo.GetEventList();
-            return View(_events);
+            var posts = repo.GetPosts();
+            return View(posts);
         }
 
 
@@ -31,11 +37,11 @@ namespace ProgerBlog.WEB.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult Create(Event _event)
+        public ActionResult Create(PostDTO post)
         {
-            repo.Create(_event);
-            repo.Save();
+            repo.Create(post);
 
             return RedirectToAction("Index");
         }
@@ -48,20 +54,19 @@ namespace ProgerBlog.WEB.Controllers
                 return HttpNotFound();
             }
             int b = (int)id;
-            Event _event = repo.GetEvent(b);
-            if (_event != null)
+            PostDTO post = repo.GetPost(b);
+            if (post != null)
             {
-                return View(_event);
+                return View(post);
             }
             return HttpNotFound();
         }
 
         // POST: Admin/Edit/5
         [HttpPost]
-        public ActionResult Edit(Event _event)
+        public ActionResult Edit(PostDTO post)
         {
-            repo.db.Entry(_event).State = EntityState.Modified;
-            repo.Save();
+            repo.Update(post);
 
             return RedirectToAction("Index");
         }
@@ -69,25 +74,23 @@ namespace ProgerBlog.WEB.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            Event b = repo.GetEvent(id);
-            if (b != null)
+            PostDTO post = repo.GetPost(id);
+            if (post != null)
             {
-                repo.Delete(b.Id);
-                repo.Save();
+                repo.Delete(post.Id);
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int? id)
         {
-            Event b = repo.GetEvent(id);
-            if (b == null)
+            PostDTO post= repo.GetPost(id);
+            if (post == null)
             {
                 return HttpNotFound();
             }
-            repo.Delete(b.Id);
-            repo.Save();
+            repo.Delete(post.Id);
             return RedirectToAction("Index");
         }
     }

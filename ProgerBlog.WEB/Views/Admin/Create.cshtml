@@ -1,0 +1,28 @@
+﻿@model ProgerBlog.WEB.Models.PostViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Новая книга</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Title, "Заголовок")
+    <br />
+    @Html.EditorFor(model => model.Title)
+    <br /><br />
+    @Html.LabelFor(model => model.SubTitle, "ПідЗаголовок")
+    <br />
+    @Html.EditorFor(model => model.SubTitle)
+    <br /><br />
+    @Html.LabelFor(model => model.Author, "Автор")
+    <br />
+    @Html.EditorFor(model => model.Author)
+    <br /><br />
+    @Html.LabelFor(model => model.Text, "Текст")
+    <br />
+    @Html.EditorFor(model => model.Text)
+    <br /><br />
+    <input type="submit" value="Добавити" />
+}

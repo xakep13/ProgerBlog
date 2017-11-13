@@ -30,8 +30,7 @@ namespace ProgerBlog.BLL.Services
         {
             
             var post = Database.PostManager.Get(id.Value);
-            if (post == null)
-                
+            
             // применяем автомаппер для проекции Phone на PhoneDTO
             Mapper.Initialize(cfg => cfg.CreateMap<Post, PostDTO>());
             return Mapper.Map<Post, PostDTO>(post);
@@ -41,6 +40,26 @@ namespace ProgerBlog.BLL.Services
         {
             
             return Mapper.Map<IEnumerable<Post>, List<PostDTO>>(Database.PostManager.GetAll());
+        }
+
+        public void Create(PostDTO post)
+        {
+            Post _post = Mapper.Map<Post>(post);
+            Database.PostManager.Create(_post);
+        }
+
+        public void Update(PostDTO post)
+        {
+
+            Post _post = Mapper.Map<Post>(post);
+            Database.PostManager.Update(_post);
+        }
+
+        public void Delete(int? id_item)
+        {
+            Post post = Database.PostManager.Get(id_item);
+            if (post != null)
+                Database.PostManager.Delete(post);
         }
 
         

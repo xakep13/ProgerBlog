@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProgerBlog.BLL.DTO.PostDTO>
+@{
+    ViewBag.Title = "Каталог";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Каталог</h2>
+<p>
+    @Html.ActionLink("Додати запис", "Create")
+</p>
+<table>
+    <tr>
+        <th>Заголовок</th>
+        <th>Підзаголовок</th>
+        <th>Автор</th>
+        <th>Текс</th>
+        <th>Дата</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+        <hr />
+    }
+</table>

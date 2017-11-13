@@ -63,7 +63,7 @@ namespace ProgerBlog.WEB.Controllers
             return View(model);
         }
 
-        public ActionResult Logout()
+        public ActionResult Logoff()
         {
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
@@ -91,7 +91,7 @@ namespace ProgerBlog.WEB.Controllers
                 };
                 OperationDetails operationDetails = await UserService.Create(userDto);
                 if (operationDetails.Succedeed)
-                    return View("SuccessRegister");
+                    return RedirectToAction("Index", "Home");
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
