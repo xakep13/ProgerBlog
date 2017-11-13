@@ -1,4 +1,4 @@
-﻿@model ProgerBlog.WEB.Models.PostViewModel
+﻿@model ProgerBlog.BLL.DTO.PostDTO
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
     <br />
     @Html.EditorFor(model => model.Title)
     <br /><br />
-    @Html.LabelFor(model => model.SubTitle, "ПідЗаголовок")
+    @Html.LabelFor(model => model.SubTitle, "Підзаголовок")
     <br />
     @Html.EditorFor(model => model.SubTitle)
     <br /><br />
@@ -23,6 +23,10 @@
     @Html.LabelFor(model => model.Text, "Текст")
     <br />
     @Html.EditorFor(model => model.Text)
+    <br /><br />
+    @Html.LabelFor(model => model.Date, "Дата")
+    <br />
+    @Html.EditorFor(model => model.Date)
     <br /><br />
     <input type="submit" value="Добавити" />
 }

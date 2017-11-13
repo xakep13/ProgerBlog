@@ -2,7 +2,7 @@
     ViewBag.Title = "Редактировать";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model ProgerBlog.WEB.Models.PostViewModel
+@model ProgerBlog.BLL.DTO.PostDTO
 
 
 <h2>Пост № @Model.Id</h2>
@@ -18,7 +18,7 @@
             
         </p>
         <p>
-            @Html.LabelFor(m => m.SubTitle, "ПідЗаголовок")
+            @Html.LabelFor(m => m.SubTitle, "Підзаголовок")
             <br />
             @Html.TextAreaFor(m => m.SubTitle, 10, 20, null)
 

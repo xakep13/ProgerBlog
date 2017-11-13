@@ -34,6 +34,7 @@ namespace ProgerBlog.DAL.Repositories
             Post post = Database.Posts.Find(item);
             if (post != null)
                 Database.Posts.Remove(post);
+            Database.SaveChanges();
         }
 
         public void Update(Post item)
@@ -46,6 +47,7 @@ namespace ProgerBlog.DAL.Repositories
             Post post = Database.Posts.Find(id_item);
             if (post != null)
                 Database.Posts.Remove(post);
+            Database.SaveChanges();
         }
 
         public IEnumerable<Post> GetAll()

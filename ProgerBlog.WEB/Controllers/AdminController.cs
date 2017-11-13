@@ -19,14 +19,10 @@ namespace ProgerBlog.WEB.Controllers
         {
             repo = postService;
         }
-
-        
-
-
-        // GET: Admin
         
         public ActionResult Index()
         {
+
             var posts = repo.GetPosts();
             return View(posts);
         }

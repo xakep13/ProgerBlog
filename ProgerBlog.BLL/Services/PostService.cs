@@ -32,7 +32,7 @@ namespace ProgerBlog.BLL.Services
             var post = Database.PostManager.Get(id.Value);
             
             // применяем автомаппер для проекции Phone на PhoneDTO
-            Mapper.Initialize(cfg => cfg.CreateMap<Post, PostDTO>());
+           
             return Mapper.Map<Post, PostDTO>(post);
         }
 
