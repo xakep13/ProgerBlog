@@ -21,7 +21,7 @@ namespace ProgerBlog.DAL.Repositories
         public void Create(Post item)
         {
             Database.Posts.Add(item);
-            Database.SaveChanges();
+            Database.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -31,7 +31,7 @@ namespace ProgerBlog.DAL.Repositories
 
         public void Delete(Post item)
         {
-            Post post = Database.Posts.Find(item);
+            Post post = Database.Posts.Find(item.Id);
             if (post != null)
                 Database.Posts.Remove(post);
             Database.SaveChanges();
@@ -40,6 +40,7 @@ namespace ProgerBlog.DAL.Repositories
         public void Update(Post item)
         {
             Database.Entry(item).State = EntityState.Modified;
+            Database.SaveChangesAsync();
         }
 
         public void Delete(int? id_item)

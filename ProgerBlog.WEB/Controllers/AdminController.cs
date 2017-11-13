@@ -38,6 +38,7 @@ namespace ProgerBlog.WEB.Controllers
         public ActionResult Create(PostDTO post)
         {
             repo.Create(post);
+           
 
             return RedirectToAction("Index");
         }
