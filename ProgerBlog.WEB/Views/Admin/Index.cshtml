@@ -5,7 +5,7 @@
 }
 <style type="text/css">
     TABLE {
-        width: 300px; /* Ширина таблицы */
+       
         border-collapse: collapse; /* Убираем двойные линии между ячейками */
     }
 
@@ -51,8 +51,8 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+                @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
             </td>
         </tr>
         
