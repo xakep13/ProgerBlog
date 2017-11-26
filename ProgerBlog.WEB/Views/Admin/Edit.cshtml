@@ -27,9 +27,19 @@
             @Html.DropDownListFor(m=>m.Category, (SelectList)ViewBag.Categories)
         </p>
         <p>
-            @Html.LabelFor(m => m.Author, "Автор")
-            <br />
-            @Html.EditorFor(m => m.Author)
+
+
+            @if(User.IsInRole("admin"))
+            {
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name } })
+            }
+            else
+            {
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" } })
+            }
+
+
+           
         </p>
         <p>
             @Html.LabelFor(m => m.Text, "Текст")
