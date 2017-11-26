@@ -32,6 +32,9 @@ namespace ProgerBlog.WEB.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            var posts = repo.GetPosts();
+            var categories = from u in posts select u.Category;
+            ViewBag.Categories = new SelectList(categories, "Category");
             return View();
         }
 

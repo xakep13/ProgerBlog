@@ -16,6 +16,10 @@
     <br />
     @Html.EditorFor(model => model.SubTitle)
     <br /><br />
+    @Html.LabelFor(m => m.Category, "Категорія")
+    <br />
+     @Html.DropDownListFor(m => m.Category, (SelectList)ViewBag.Categories)
+    <br /><br />
     @Html.LabelFor(model => model.Author, "Автор")
     <br />
     if(User.IsInRole("admin"))
