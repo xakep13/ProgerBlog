@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace ProgerBlog.WEB.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin, moderator")]
     public class AdminController : Controller
     {
 

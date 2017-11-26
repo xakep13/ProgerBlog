@@ -15,7 +15,7 @@ namespace ProgerBlog.BLL.Services
 {
     public class UserService : IUserService
     {
-        IUnitOfWork Database { get; set; }
+        public IUnitOfWork Database { get; set; }
 
         public UserService(IUnitOfWork uow)
         {
@@ -44,6 +44,25 @@ namespace ProgerBlog.BLL.Services
                 return new OperationDetails(false, "Користувач з таким логіном вже існує", "Email");
             }
         }
+
+
+        public async Task<OperationDetails> Delete(UserDTO userDto)
+        {
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            if (user == null)
+            {
+                return new OperationDetails(false, "Такого користувача не снує", "");
+            }
+            else
+            {
+               // user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
+                var result = await Database.UserManager.DeleteAsync(user);
+                
+                await Database.SaveAsync();
+                return new OperationDetails(true, "Видалення пройшло успішно", "");
+            }
+        }
+
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
@@ -75,6 +94,29 @@ namespace ProgerBlog.BLL.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public async Task<UserDTO> FindByNameAsync(string name)
+        {
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(name);
+            UserDTO userDTO = new UserDTO()
+            {
+                Name = user.UserName,
+                Email = user.Email,
+                Id = user.Id
+            };
+            return userDTO;
+        }
+
+        public async Task<OperationDetails> UpdateAsync(UserDTO userDto)
+        {
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            if (user != null)
+            {    
+                await Database.SaveAsync();
+                return new OperationDetails(true, "Зміни збережені", "");
+            }
+             else return new OperationDetails(false, "Зміни не збережені", "");
         }
     }
 }

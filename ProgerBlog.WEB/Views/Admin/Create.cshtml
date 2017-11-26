@@ -18,7 +18,14 @@
     <br /><br />
     @Html.LabelFor(model => model.Author, "Автор")
     <br />
-    @Html.EditorFor(model => model.Author)
+    if(User.IsInRole("admin"))
+    {
+        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name } })
+    }
+    else
+    {
+        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }  })
+    }
     <br /><br />
     @Html.LabelFor(model => model.Text, "Текст")
     <br />

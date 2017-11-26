@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace ProgerBlog.BLL.Infrastructure
 {
@@ -17,5 +18,10 @@ namespace ProgerBlog.BLL.Infrastructure
         public bool Succedeed { get; private set; }
         public string Message { get; private set; }
         public string Property { get; private set; }
+
+        public static implicit operator OperationDetails(IdentityResult v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
