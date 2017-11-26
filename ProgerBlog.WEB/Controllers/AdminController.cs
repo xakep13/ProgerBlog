@@ -22,8 +22,9 @@ namespace ProgerBlog.WEB.Controllers
         
         public ActionResult Index()
         {
-
             var posts = repo.GetPosts();
+            
+            
             return View(posts);
         }
 
@@ -45,12 +46,21 @@ namespace ProgerBlog.WEB.Controllers
         [HttpGet]
         public ActionResult Edit(int? id)
         {
+            var posts = repo.GetPosts();
+            var categories = from u in posts select u.Category;
+            ViewBag.Categories =new SelectList( categories,"Category");
+
             if (id == null)
             {
                 return HttpNotFound();
             }
             int b = (int)id;
+            
+
             PostDTO post = repo.GetPost(b);
+
+            
+
             if (post != null)
             {
                 return View(post);

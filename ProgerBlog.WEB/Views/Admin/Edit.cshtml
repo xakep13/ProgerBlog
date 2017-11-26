@@ -14,20 +14,22 @@
         <p>
             @Html.LabelFor(m => m.Title, "Заголовок")
             <br />
-            @Html.TextAreaFor(m => m.Title, 10, 20, null)
-            
+            @Html.TextAreaFor(m => m.Title, 10, 20, null)           
         </p>
         <p>
             @Html.LabelFor(m => m.SubTitle, "Підзаголовок")
             <br />
             @Html.TextAreaFor(m => m.SubTitle, 10, 20, null)
-
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Category, "Категорія")
+            <br />
+            @Html.DropDownListFor(m=>m.Category, (SelectList)ViewBag.Categories)
         </p>
         <p>
             @Html.LabelFor(m => m.Author, "Автор")
             <br />
             @Html.EditorFor(m => m.Author)
-
         </p>
         <p>
             @Html.LabelFor(m => m.Text, "Текст")
