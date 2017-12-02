@@ -6,7 +6,7 @@
 <script type="text/javascript">
    
     function OnFailure(request, error) {
-        $("#results").html("За даним запитом нічого не знайдено"+ error);
+        $("#results").html("За даним запитом нічого не знайдено");
     }
 
 </script>
@@ -47,7 +47,7 @@
                 {
                     <div class="sidebar-module">
 
-                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results" , OnFailure = "OnFailure" })
+                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results"  })
                         
                     </div>
                 }
