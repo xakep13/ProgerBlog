@@ -19,11 +19,46 @@ namespace ProgerBlog.WEB.Controllers
             postService = serv;
         }
 
-        public ActionResult Index()
+
+        [HttpPost]
+        public ActionResult PostCategory(string category)
         {
             IEnumerable<PostDTO> postDtos = postService.GetPosts();
+            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos).Where(a => a.Category.ToLower() == category.ToLower()).ToList();
+
+
+            if (posts.Count <= 0)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(posts);
+        }
+
+
+        [HttpPost]
+        public ActionResult PostSearch(string name)
+        {
+
+            IEnumerable<PostDTO> postDtos = postService.GetPosts();
+            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos).Where(a => a.Title.ToLower().Contains(name.ToLower()) || a.SubTitle.ToLower().Contains(name.ToLower())).ToList(); 
+
            
+
+            if (posts.Count <= 0)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(posts);
+        }
+
+
+        public ActionResult Index()
+        {
+            IEnumerable<PostDTO> postDtos = postService.GetPosts();         
             var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos);
+
+            ViewBag.Categories = from u in posts select u.Category;
+            
 
             return View(posts);
         }

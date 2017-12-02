@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using ProgerBlog.BLL.DTO;
 using ProgerBlog.BLL.Infrastructure;
 using ProgerBlog.BLL.Interfaces;
@@ -103,10 +104,11 @@ namespace ProgerBlog.BLL.Services
             {
                 Name = user.UserName,
                 Email = user.Email,
-                Id = user.Id
+                Id = user.Id,
             };
             return userDTO;
         }
+        
 
         public async Task<OperationDetails> UpdateAsync(UserDTO userDto)
         {
@@ -118,6 +120,8 @@ namespace ProgerBlog.BLL.Services
             }
              else return new OperationDetails(false, "Зміни не збережені", "");
         }
+
+       
     }
 }
     

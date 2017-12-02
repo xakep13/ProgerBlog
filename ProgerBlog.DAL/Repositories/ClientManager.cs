@@ -47,5 +47,15 @@ namespace ProgerBlog.DAL.Repositories
         {
             Database.Entry(item).State = EntityState.Modified;
         }
+
+        public IEnumerable<ClientProfile> AllUsers()
+        {
+            return Database.ClientProfiles.ToList();
+        }
+
+        public ClientProfile GetClient(int id_item)
+        {
+            return Database.ClientProfiles.Find(id_item);
+        }
     }
 }

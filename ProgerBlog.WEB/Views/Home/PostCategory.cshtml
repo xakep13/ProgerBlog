@@ -1,0 +1,30 @@
+﻿@model List<ProgerBlog.WEB.Models.PostViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            @foreach (var p in Model.ToList())
+            {
+
+                {
+                    <div class="post-preview">
+                        <a href="@Url.Action("Post", "Home", new { id = p.Id })">
+                            <h2 class="post-title">
+                                @p.Title
+                            </h2>
+                            <h3 class="post-subtitle">@p.SubTitle</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by @p.Author on @p.Date
+                        </p>
+                    </div>
+                    <hr>
+                }
+            }
+            <!-- Pager -->
+            <div class="clearfix">
+                <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>

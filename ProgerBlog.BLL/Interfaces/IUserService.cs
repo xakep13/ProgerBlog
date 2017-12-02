@@ -16,6 +16,7 @@ namespace ProgerBlog.BLL.Interfaces
         Task<OperationDetails> Delete(UserDTO userDto);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
+
         Task<UserDTO> FindByNameAsync(string name);
         Task<OperationDetails> UpdateAsync(UserDTO user);
     }

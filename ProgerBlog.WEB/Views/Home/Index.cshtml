@@ -3,6 +3,20 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
+<script type="text/javascript">
+    function OnBegin() {
+        alert("Происходит отправка запроса");
+    }
+    function OnSuccess(data) {
+        alert("Запрос был успешно выполнен. Получены следующие данные: \n" + data);
+    }
+    function OnFailure(request, error) {
+        $("#results").html("Книги указанного автора не содержатся в базе данных.");
+    }
+    function OnComplete(request, status) {
+        alert("Статус запроса : " + status);
+    }
+</script>
 
 @section Header{
     <!-- Page Header -->
@@ -19,34 +33,33 @@
         </div>
     </header>
 }
-}
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-10 col-sm-10  col-md-10 mx-auto">
+            <div id="results">
+                @Html.Partial("PostSearch")
+            </div>
+         </div>
+        <div class="col-lg-2 col-sm-2 col-md-1 mx-auto">
 
-            @foreach (var p in Model.ToList())
+            @using (Ajax.BeginForm("PostSearch", new AjaxOptions { UpdateTargetId = "results", }))
             {
-                <div class="post-preview">
-                    <a href="@Url.Action("Post", "Home", new {id = p.Id })">
-                        <h2 class="post-title">
-                            @p.Title
-                        </h2>
-                        <h3 class="post-subtitle">@p.SubTitle</h3>
-                    </a>
-                    <p class="post-meta">
-                        Posted by @p.Author on @p.Date
-                    </p>
-                </div>
-                <hr>
+                    <input type="text" name="name" />
+                    <input type="submit" value="Пошук" />
             }
 
+            <br />
+                @foreach (string s in ViewBag.Categories)
+                {
+                    <div class="sidebar-module">
+
+                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results" })
+                        
+                    </div>
+                }
+        <br />
 
 
-
-            <!-- Pager -->
-            <div class="clearfix">
-                <a class="btn btn-secondary float-right" href="#">Older Posts &rarr;</a>
-            </div>
-        </div>
-    </div>
+         </div>
+     </div>
 </div>
