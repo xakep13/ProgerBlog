@@ -4,14 +4,9 @@
 }
 
 <script type="text/javascript">
-    function OnBegin() {
-        alert("Происходит отправка запроса");
-    }
-    function OnSuccess(data) {
-        alert("Запрос был успешно выполнен. Получены следующие данные: \n" + data);
-    }
+   
     function OnFailure(request, error) {
-        $("#results").html("Книги указанного автора не содержатся в базе данных.");
+        $("#results").html("За даним запитом нічого не знайдено");
     }
     function OnComplete(request, status) {
         alert("Статус запроса : " + status);
@@ -42,13 +37,14 @@
          </div>
         <div class="col-lg-2 col-sm-2 col-md-1 mx-auto">
 
-            @using (Ajax.BeginForm("PostSearch", new AjaxOptions { UpdateTargetId = "results", }))
+            @using (Ajax.BeginForm("PostSearch", new AjaxOptions { UpdateTargetId = "results", OnFailure = "OnFailure" }))
             {
                     <input type="text" name="name" />
                     <input type="submit" value="Пошук" />
             }
 
             <br />
+
                 @foreach (string s in ViewBag.Categories)
                 {
                     <div class="sidebar-module">
