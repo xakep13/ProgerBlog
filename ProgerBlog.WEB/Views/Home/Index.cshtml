@@ -6,11 +6,9 @@
 <script type="text/javascript">
    
     function OnFailure(request, error) {
-        $("#results").html("За даним запитом нічого не знайдено");
+        $("#results").html("За даним запитом нічого не знайдено"+ error);
     }
-    function OnComplete(request, status) {
-        alert("Статус запроса : " + status);
-    }
+
 </script>
 
 @section Header{
@@ -49,7 +47,7 @@
                 {
                     <div class="sidebar-module">
 
-                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results" })
+                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results" , OnFailure = "OnFailure" })
                         
                     </div>
                 }
