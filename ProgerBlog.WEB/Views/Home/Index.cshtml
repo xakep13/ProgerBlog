@@ -28,7 +28,7 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col-lg-10 col-sm-10  col-md-10 mx-auto">
+        <div class="col-lg-8 col-sm-8  col-md-8 mx-auto">
             <div id="results">
                 @Html.Partial("PostSearch")
             </div>
@@ -47,12 +47,11 @@
                 {
                     <div class="sidebar-module">
 
-                        @Ajax.ActionLink(s, "PostCategory", new { category = s }, new AjaxOptions { UpdateTargetId = "results"  })
+                        @Ajax.ActionLink(s, "PostCategory", new { category = s.ToString() }, new AjaxOptions { UpdateTargetId = "results" , OnFailure = "OnFailure" })
                         
                     </div>
                 }
-        <br />
-
+            <br />
 
          </div>
      </div>

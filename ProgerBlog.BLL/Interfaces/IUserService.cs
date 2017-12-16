@@ -13,11 +13,17 @@ namespace ProgerBlog.BLL.Interfaces
     public interface IUserService : IDisposable
     {
         Task<OperationDetails> Create(UserDTO userDto);
-        Task<OperationDetails> Delete(UserDTO userDto);
+
+        OperationDetails Delete(string id);
+
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
         Task SetInitialData(UserDTO adminDto, List<string> roles);
-
-        Task<UserDTO> FindByNameAsync(string name);
+        List<UserDTO> GetUsers();
+        UserDTO GetUser(string name);
+       
         Task<OperationDetails> UpdateAsync(UserDTO user);
+        Task<OperationDetails> UpdateAsync();
+
+
     }
 }

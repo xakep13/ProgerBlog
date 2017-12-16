@@ -13,5 +13,6 @@ namespace ProgerBlog.WEB.Models
         
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

@@ -31,14 +31,14 @@ namespace ProgerBlog.DAL.Repositories
 
         public void Delete(ClientProfile item)
         {
-           ClientProfile clientProfile= Database.ClientProfiles.Find(item);
+           ClientProfile clientProfile= item;
             if (clientProfile != null)
                 Database.ClientProfiles.Remove(clientProfile);
         }
 
-        public void Delete(int id_item)
+        public void Delete(string name)
         {
-            ClientProfile clientProfile = Database.ClientProfiles.Find(id_item);
+            ClientProfile clientProfile = Database.ClientProfiles.Find(name);
             if (clientProfile != null)
                 Database.ClientProfiles.Remove(clientProfile);
         }
@@ -53,9 +53,12 @@ namespace ProgerBlog.DAL.Repositories
             return Database.ClientProfiles.ToList();
         }
 
-        public ClientProfile GetClient(int id_item)
+        public ClientProfile GetClient(string id)
         {
-            return Database.ClientProfiles.Find(id_item);
+            
+            return Database.ClientProfiles.Find(id);
         }
+
+        
     }
 }

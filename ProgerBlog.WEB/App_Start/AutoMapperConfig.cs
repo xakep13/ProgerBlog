@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ProgerBlog.BLL.DTO;
+using ProgerBlog.DAL.Entities;
 using ProgerBlog.WEB.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace ProgerBlog.WEB.App_Start
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<PostDTO, PostViewModel>();
+
+                cfg.CreateMap<UserDTO, EditModel>();
+                cfg.CreateMap<EditModel, UserDTO>();
             }); 
         }
     }

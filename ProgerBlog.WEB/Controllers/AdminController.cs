@@ -94,7 +94,7 @@ namespace ProgerBlog.WEB.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int? id)
         {
-            PostDTO post= repo.GetPost(id);
+            PostDTO post = repo.GetPost(id);
             if (post == null)
             {
                 return HttpNotFound();

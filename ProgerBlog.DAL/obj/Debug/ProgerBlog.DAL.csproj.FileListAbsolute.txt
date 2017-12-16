@@ -9,7 +9,6 @@ c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\EntityFr
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\EntityFramework.SqlServer.xml
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
-c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.csprojResolveAssemblyReference.cache
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.csproj.CoreCompileInputs.cache
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.dll
 c:\users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.DAL\obj\Debug\ProgerBlog.DAL.pdb

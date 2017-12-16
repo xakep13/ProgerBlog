@@ -1,0 +1,66 @@
+﻿@model List<ProgerBlog.WEB.Models.EditModel>
+    
+<style type="text/css">
+    TABLE {
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    }
+
+    TD, TH {
+        padding: 3px; /* Поля вокруг содержимого таблицы */
+        border: 1px solid black; /* Параметры рамки */
+    }
+
+    TH {
+        background: #b0e0e6; /* Цвет фона */
+    }
+</style>
+
+
+
+<h2>Index</h2>
+
+<table>
+    <tr>
+        <th>Name</th>     
+        <th>Role</th>
+        <th>Email</th>
+        <th>IsDelete</th>
+        
+        <th></th>
+    </tr>
+    
+    
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+                
+                <td>
+                   @if (item.IsDelete)
+                   {
+                       @Html.ActionLink("Відновити", "Delete", new { id = item.Id })
+                   }
+                   else
+                   {
+                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                   }
+
+                </td>
+            </tr>
+
+        }
+   
+    
+</table>

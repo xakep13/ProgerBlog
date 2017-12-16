@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProgerBlog.BLL.DTO;
@@ -43,6 +44,15 @@ namespace ProgerBlog.WEB.Controllers
             }
         }
 
+        public ActionResult Index()
+        {
+
+            var users = Mapper.Map<List<UserDTO>, List<EditModel>>(UserService.GetUsers().ToList());
+            
+
+            return View(users);
+        }
+
         public ActionResult Login()
         {
             return View();
@@ -55,22 +65,23 @@ namespace ProgerBlog.WEB.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password };
-                ClaimsIdentity claim = await UserService.Authenticate(userDto);
-                if (claim == null)
-                {
-                    ModelState.AddModelError("", "Невірний логін або пароль.");
-                }
-                else
-                {
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
+                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password,IsDelete=model.IsDelete };
+                
+                    ClaimsIdentity claim = await UserService.Authenticate(userDto);
+                    if (claim == null)
                     {
-                        IsPersistent = true
-                    }, claim);
-                    return RedirectToAction("Index", "Home");
+                        ModelState.AddModelError("", "Невірний логін або пароль.");
+                    }
+                    else
+                    {
+                        AuthenticationManager.SignOut();
+                        AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, claim);
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-            }
             return View(model);
         }
 
@@ -100,7 +111,8 @@ namespace ProgerBlog.WEB.Controllers
                     Password = model.Password,
                     Address = model.Address,
                     Name = model.Name,
-                    Role = "user"
+                    Role = "user",
+                    IsDelete = false,
                 };
                 OperationDetails operationDetails = await UserService.Create(userDto);
                 if (operationDetails.Succedeed)
@@ -120,6 +132,7 @@ namespace ProgerBlog.WEB.Controllers
                 Name = "Чорнобай Сергій Васильович",
                 Address = "вул. Кам'янецька 112/2, кв. 146",
                 Role = "admin",
+                IsDelete = false,
             }, Roles);
 
             await UserService.SetInitialData(new UserDTO
@@ -130,6 +143,7 @@ namespace ProgerBlog.WEB.Controllers
                 Name = "Чорнобай Сергій Васильович",
                 Address = "вул. Кам'янецька 112/2, кв. 146",
                 Role = "user",
+                IsDelete = true,
             }, Roles);
 
             await UserService.SetInitialData(new UserDTO
@@ -140,67 +154,54 @@ namespace ProgerBlog.WEB.Controllers
                 Name = "Чорнобай Сергій Васильович",
                 Address = "вул. Кам'янецька 112/2, кв. 146",
                 Role = "moderator",
+                IsDelete = false,
             }, Roles);
         }
 
 
 
         [HttpGet]
-        public ActionResult Delete()
+        public ActionResult Delete(string id)
         {
-            return View();
+            
+                UserService.Delete(id);
+            UserService.UpdateAsync();
+
+            return RedirectToAction("Index", "Account");
+        }
+    
+
+        
+        [HttpPost,ActionName("Delete")]
+        public ActionResult DeleteConfirm(string id)
+        {
+
+            
+             UserService.Delete(id);
+            UserService.UpdateAsync();
+
+            return RedirectToAction("Index", "Account");
         }
 
-        [HttpPost]
-        [ActionName("Delete")]
-        public async Task<ActionResult> DeleteConfirmed()
-        {
-            UserDTO user = await UserService.FindByNameAsync(User.Identity.Name);
-            if (user != null)
-            {
-                OperationDetails result = await UserService.Delete(user);
-                if (result.Succedeed)
-                {
-                    return RedirectToAction("Logout", "Account");
-                }
-            }
-            return RedirectToAction("Index", "Home");
-        }
 
-        public async Task<ActionResult> Edit()
+        [HttpGet]
+        public  ActionResult Edit(string id)
         {
-            UserDTO user = await UserService.FindByNameAsync(User.Identity.Name);
-            if (user != null)
-            {
-                EditModel model = new EditModel { Name = user.Name };
-                return View(model);
-            }
-            return RedirectToAction("Login", "Account");
-        }
+            UserDTO user = UserService.GetUser(id);
 
-        [HttpPost]
-        public async Task<ActionResult> Edit(EditModel model)
-        {
-            UserDTO user = await UserService.FindByNameAsync(User.Identity.Name);
-            if (user != null)
-            {
-                user.Name = model.Name;
-                OperationDetails result = await UserService.UpdateAsync(user);
-                if (result.Succedeed)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Что-то пошло не так");
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "Пользователь не найден");
-            }
+            EditModel model = Mapper.Map<UserDTO, EditModel>(user);
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditModel model)
+        {
+            UserDTO user = Mapper.Map<EditModel, UserDTO>(model);
+
+            UserService.UpdateAsync(user);
+
+            return RedirectToAction("Index", "Account");
         }
     }
 }

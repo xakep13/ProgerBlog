@@ -58,6 +58,10 @@
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
@@ -321,6 +325,7 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Home\PostSearch.cshtml" />
     <Content Include="Views\Home\PostCategory.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,6 +347,10 @@
     <ProjectReference Include="..\ProgerBlog.BLL\ProgerBlog.BLL.csproj">
       <Project>{bee3c1e7-1ae6-44f7-8334-3ccf894d0221}</Project>
       <Name>ProgerBlog.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProgerBlog.DAL\ProgerBlog.DAL.csproj">
+      <Project>{3D6CD3B1-FA08-4F04-9321-E9A133688304}</Project>
+      <Name>ProgerBlog.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

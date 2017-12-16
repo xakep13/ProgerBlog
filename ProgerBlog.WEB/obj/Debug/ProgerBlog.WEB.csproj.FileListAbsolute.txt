@@ -85,7 +85,6 @@ C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\System.Web.Web
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\System.Web.WebPages.Razor.dll
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\WebGrease.dll
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\ProgerBlog.DAL.dll
-C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\ProgerBlog.BLL.pdb
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\ProgerBlog.BLL.dll.config
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\AutoMapper.xml

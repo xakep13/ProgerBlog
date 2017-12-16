@@ -20,11 +20,11 @@ namespace ProgerBlog.WEB.Controllers
         }
 
 
-        [HttpPost]
+       
         public ActionResult PostCategory(string category)
         {
-            IEnumerable<PostDTO> postDtos = postService.GetPosts();
-            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos).Where(a => a.Category.ToLower() == category.ToLower()).ToList();
+            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postService.GetPosts())
+                        .Where(a => a.Category.ToLower().Equals(category.ToLower())).ToList();
 
 
             if (posts.Count <= 0)
@@ -38,12 +38,10 @@ namespace ProgerBlog.WEB.Controllers
         [HttpPost]
         public ActionResult PostSearch(string name)
         {
-
-            IEnumerable<PostDTO> postDtos = postService.GetPosts();
-            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos).Where(a => a.Title.ToLower().Contains(name.ToLower()) || a.SubTitle.ToLower().Contains(name.ToLower())).ToList(); 
+            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postService.GetPosts())
+                        .Where(a => a.Title.ToLower().Contains(name.ToLower()) || a.SubTitle.ToLower().Contains(name.ToLower())).ToList(); 
 
            
-
             if (posts.Count <= 0)
             {
                 return HttpNotFound();
@@ -53,9 +51,8 @@ namespace ProgerBlog.WEB.Controllers
 
 
         public ActionResult Index()
-        {
-            IEnumerable<PostDTO> postDtos = postService.GetPosts();         
-            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postDtos);
+        {        
+            var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postService.GetPosts());
 
             ViewBag.Categories = from u in posts select u.Category;
             

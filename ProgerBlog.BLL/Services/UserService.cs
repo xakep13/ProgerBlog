@@ -17,10 +17,31 @@ namespace ProgerBlog.BLL.Services
     public class UserService : IUserService
     {
         public IUnitOfWork Database { get; set; }
+        protected MapperConfiguration mapper;
 
         public UserService(IUnitOfWork uow)
         {
             Database = uow;
+
+            mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ApplicationUser, UserDTO>()
+                    .ForMember("Name", otp => otp.MapFrom(c => c.ClientProfile.Name))
+                    .ForMember("Role", otp => otp.MapFrom(c => String.Join(",", Database.UserManager.GetRoles(c.Id))))
+                    .ForMember("IsDelete", otp => otp.MapFrom(c => c.ClientProfile.IsDelete))
+                    .ForMember("Password", otp => otp.MapFrom(c => c.PasswordHash))
+                    .ForMember("Address", otp => otp.MapFrom(c => c.ClientProfile.Address));
+                cfg.CreateMap<UserDTO, ApplicationUser>()
+                    .ForPath(dest => dest.ClientProfile.Name, opt => opt.MapFrom(src => src.Name))
+                    .ForPath(dest => dest.ClientProfile.Address, opt => opt.MapFrom(src => src.Address))
+                    .ForPath(dest => dest.ClientProfile.IsDelete, opt => opt.MapFrom(src => src.IsDelete))
+                    .ForPath(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password))
+                    .ForPath(dest => dest.Roles, opt => opt.MapFrom(src => src.Role));
+
+                ;
+
+            });
+
         }
 
         public async Task<OperationDetails> Create(UserDTO userDto)
@@ -28,14 +49,14 @@ namespace ProgerBlog.BLL.Services
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
             if (user == null)
             {
-                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
+                user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email,  };
                 var result = await Database.UserManager.CreateAsync(user, userDto.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 // добавляем роль
                 await Database.UserManager.AddToRoleAsync(user.Id, userDto.Role);
                 // создаем профиль клиента
-                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name };
+                ClientProfile clientProfile = new ClientProfile { Id = user.Id, Address = userDto.Address, Name = userDto.Name, IsDelete = userDto.IsDelete };
                 Database.ClientManager.Create(clientProfile);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Реєстрація пройшла успішно", "");
@@ -47,22 +68,7 @@ namespace ProgerBlog.BLL.Services
         }
 
 
-        public async Task<OperationDetails> Delete(UserDTO userDto)
-        {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
-            if (user == null)
-            {
-                return new OperationDetails(false, "Такого користувача не снує", "");
-            }
-            else
-            {
-               // user = new ApplicationUser { Email = userDto.Email, UserName = userDto.Email };
-                var result = await Database.UserManager.DeleteAsync(user);
-                
-                await Database.SaveAsync();
-                return new OperationDetails(true, "Видалення пройшло успішно", "");
-            }
-        }
+        
 
 
         public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
@@ -71,8 +77,10 @@ namespace ProgerBlog.BLL.Services
             // находим пользователя
             ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
             // авторизуем его и возвращаем объект ClaimsIdentity
+
             if (user != null)
-                claim = await Database.UserManager.CreateIdentityAsync(user,
+                if (user.ClientProfile.IsDelete == false)
+                    claim = await Database.UserManager.CreateIdentityAsync(user,
                                             DefaultAuthenticationTypes.ApplicationCookie);
             return claim;
         }
@@ -82,11 +90,11 @@ namespace ProgerBlog.BLL.Services
         {
             foreach (string roleName in roles)
             {
-                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                var role = await Database.GetRoleManager().FindByNameAsync(roleName);
                 if (role == null)
                 {
                     role = new ApplicationRole { Name = roleName };
-                    await Database.RoleManager.CreateAsync(role);
+                    await Database.GetRoleManager().CreateAsync(role);
                 }
             }
             await Create(adminDto);
@@ -97,31 +105,65 @@ namespace ProgerBlog.BLL.Services
             Database.Dispose();
         }
 
-        public async Task<UserDTO> FindByNameAsync(string name)
-        {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(name);
-            UserDTO userDTO = new UserDTO()
-            {
-                Name = user.UserName,
-                Email = user.Email,
-                Id = user.Id,
-            };
-            return userDTO;
-        }
+        
         
 
         public async Task<OperationDetails> UpdateAsync(UserDTO userDto)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            
+            ApplicationUser user =  Database.UserManager.FindById(userDto.Id);
             if (user != null)
-            {    
+            {
+                await Database.UserManager.DeleteAsync(user);
+                await Create(userDto);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Зміни збережені", "");
             }
              else return new OperationDetails(false, "Зміни не збережені", "");
         }
+        public async Task<OperationDetails> UpdateAsync()
+        {
+            await Database.SaveAsync();
 
-       
+            return new OperationDetails(true, "Зміни збережені", "");
+        }
+
+        public List<UserDTO> GetUsers()
+        {
+            var map = mapper.CreateMapper();
+            List<UserDTO> users = map.Map<List<ApplicationUser>, List<UserDTO>>(Database.UserManager.Users.ToList());
+
+            return users;
+        }
+
+        public OperationDetails Delete(string id)
+        {
+            ApplicationUser user = Database.UserManager.FindById(id);
+
+            if (user != null)
+            {
+                if(!user.ClientProfile.IsDelete)
+                    user.ClientProfile.IsDelete = true;
+                else
+                    user.ClientProfile.IsDelete = false;
+                Database.SaveAsync();
+
+                return new OperationDetails(true, "Видалення відбулось", "");
+            }
+
+            return new OperationDetails(false, "Видалення не відюулось", "");
+        }
+
+
+        public UserDTO GetUser(string id)
+        {
+            var map = mapper.CreateMapper();
+            ApplicationUser user = Database.UserManager.FindById(id);
+
+            return map.Map<ApplicationUser, UserDTO>(user);
+
+        }
+        
     }
 }
     

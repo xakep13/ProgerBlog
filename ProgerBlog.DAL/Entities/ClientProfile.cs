@@ -17,6 +17,8 @@ namespace ProgerBlog.DAL.Entities
         public string Name { get; set; }
         public string Address { get; set; }
 
+        public bool IsDelete { get; set; }
+
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

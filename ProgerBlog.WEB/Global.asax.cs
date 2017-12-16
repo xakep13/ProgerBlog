@@ -24,6 +24,7 @@ namespace ProgerBlog.WEB
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             App_Start.AutoMapperConfig.Initialize();
+           
 
             NinjectModule postModule = new PostModule();
             NinjectModule serviceModule = new ServiceModule("DefaultConnection");

@@ -11,9 +11,10 @@ namespace ProgerBlog.DAL.Interfaces
     {
         void Create(ClientProfile item);
         void Delete(ClientProfile item);
-        void Delete(int id_item);
+        void Delete(string name);
         void Update(ClientProfile item);
-        ClientProfile GetClient(int id_item);
+        ClientProfile GetClient(string name);
         IEnumerable<ClientProfile> AllUsers();
+        
     }
 }

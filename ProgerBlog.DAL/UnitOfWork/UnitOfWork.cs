@@ -45,10 +45,8 @@ namespace ProgerBlog.DAL.UnitOfWork
             get { return clientManager; }
         }
 
-        public ApplicationRoleManager RoleManager
-        {
-            get { return roleManager; }
-        }
+        public ApplicationRoleManager GetRoleManager()
+        { return roleManager; }
 
         public async Task SaveAsync()
         {
