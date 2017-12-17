@@ -47,6 +47,21 @@
                             <a class="nav-link" href="@Url.Action("Register","Account")">Зареєстуватись</a>
                         </li>
                     }
+                    @if (User.IsInRole("moderator"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Admin")">Адмінпанель</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("admin"))
+                    {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Admin")">Адмінпанель</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "User")">Користувачі</a>
+                    </li>
+                    }
 
                 </ul>
             </div>

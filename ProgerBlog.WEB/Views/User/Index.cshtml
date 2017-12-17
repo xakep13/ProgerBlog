@@ -1,0 +1,59 @@
+﻿@model List<ProgerBlog.WEB.Models.EditModel>
+@{ 
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<h1>Список Юзерів</h1>
+<br /><br />
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>IsDelete</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+
+            <td>
+                @if (!User.Identity.Name.Equals(item.Email))
+                {
+                    if (item.IsDelete)
+                    {
+                        @Html.ActionLink("Відновити", "Delete", new { id = item.Id })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Редвгувати", "Edit", new { id = item.Id})
+            </td>
+        </tr>
+
+    }
+
+
+</table>

@@ -43,15 +43,7 @@ namespace ProgerBlog.WEB.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
-
-        public ActionResult Index()
-        {
-
-            var users = Mapper.Map<List<UserDTO>, List<EditModel>>(UserService.GetUsers().ToList());
-            
-
-            return View(users);
-        }
+        
 
         public ActionResult Login()
         {
@@ -160,48 +152,6 @@ namespace ProgerBlog.WEB.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult Delete(string id)
-        {
-            
-                UserService.Delete(id);
-            UserService.UpdateAsync();
-
-            return RedirectToAction("Index", "Account");
-        }
-    
-
         
-        [HttpPost,ActionName("Delete")]
-        public ActionResult DeleteConfirm(string id)
-        {
-
-            
-             UserService.Delete(id);
-            UserService.UpdateAsync();
-
-            return RedirectToAction("Index", "Account");
-        }
-
-
-        [HttpGet]
-        public  ActionResult Edit(string id)
-        {
-            UserDTO user = UserService.GetUser(id);
-
-            EditModel model = Mapper.Map<UserDTO, EditModel>(user);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(EditModel model)
-        {
-            UserDTO user = Mapper.Map<EditModel, UserDTO>(model);
-
-            UserService.UpdateAsync(user);
-
-            return RedirectToAction("Index", "Account");
-        }
     }
 }

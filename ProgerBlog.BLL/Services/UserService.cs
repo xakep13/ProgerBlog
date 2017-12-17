@@ -103,19 +103,21 @@ namespace ProgerBlog.BLL.Services
         public void Dispose()
         {
             Database.Dispose();
-        }
-
-        
-        
+        }       
 
         public async Task<OperationDetails> UpdateAsync(UserDTO userDto)
-        {
-            
+        {    
             ApplicationUser user =  Database.UserManager.FindById(userDto.Id);
+          
             if (user != null)
             {
-                await Database.UserManager.DeleteAsync(user);
-                await Create(userDto);
+                IList<string> roles = Database.UserManager.GetRoles(user.Id);
+                 Database.UserManager.RemoveFromRoles(user.Id, String.Join(",",roles));
+                 Database.UserManager.AddToRole(user.Id, userDto.Role);
+
+                user.ClientProfile.Name = userDto.Name;
+                user.Email = userDto.Email;
+
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Зміни збережені", "");
             }
@@ -127,14 +129,7 @@ namespace ProgerBlog.BLL.Services
 
             return new OperationDetails(true, "Зміни збережені", "");
         }
-
-        public List<UserDTO> GetUsers()
-        {
-            var map = mapper.CreateMapper();
-            List<UserDTO> users = map.Map<List<ApplicationUser>, List<UserDTO>>(Database.UserManager.Users.ToList());
-
-            return users;
-        }
+   
 
         public OperationDetails Delete(string id)
         {
@@ -163,7 +158,14 @@ namespace ProgerBlog.BLL.Services
             return map.Map<ApplicationUser, UserDTO>(user);
 
         }
-        
+
+        public List<UserDTO> GetUsers()
+        {
+            var map = mapper.CreateMapper();
+            List<UserDTO> users = map.Map<List<ApplicationUser>, List<UserDTO>>(Database.UserManager.Users.ToList());
+
+            return users;
+        }
     }
 }
     
