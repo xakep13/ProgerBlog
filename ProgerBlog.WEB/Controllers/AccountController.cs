@@ -57,22 +57,24 @@ namespace ProgerBlog.WEB.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password,IsDelete=model.IsDelete };
+                UserDTO userDto = new UserDTO { Email = model.Email, Password = model.Password, IsDelete = model.IsDelete };
                 
                     ClaimsIdentity claim = await UserService.Authenticate(userDto);
-                    if (claim == null)
+                if (claim == null)
+                {
+                    ModelState.AddModelError("", "Невірний логін або пароль.");
+                }
+                else
+                {
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
                     {
-                        ModelState.AddModelError("", "Невірний логін або пароль.");
-                    }
-                    else
-                    {
-                        AuthenticationManager.SignOut();
-                        AuthenticationManager.SignIn(new AuthenticationProperties
-                        {
-                            IsPersistent = true
-                        }, claim);
-                        return RedirectToAction("Index", "Home");
-                    }
+                        IsPersistent = true
+                    }, claim);
+                }
+                    if (claim.Claims.ElementAt(4).Value.Equals("admin")) return RedirectToAction("Index", "User");
+                    else return RedirectToAction("Index", "Home");
+                 
                 }
             return View(model);
         }
@@ -82,8 +84,6 @@ namespace ProgerBlog.WEB.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
-        
 
         public ActionResult Register()
         {

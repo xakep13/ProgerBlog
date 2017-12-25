@@ -3,6 +3,7 @@ using ProgerBlog.BLL.Interfaces;
 using ProgerBlog.BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +19,8 @@ namespace ProgerBlog.WEB.Controllers
         public AdminController(IPostService postService)
         {
             repo = postService;
+            var categories = from u in repo.GetPosts() select u.Category;
+            ViewBag.Categories = new SelectList(categories, "Category");
         }
         
         public ActionResult Index()
@@ -33,25 +36,31 @@ namespace ProgerBlog.WEB.Controllers
         public ActionResult Create()
         {
             var posts = repo.GetPosts();
-            var categories = from u in posts select u.Category;
+            var categories = new List<string> { "Програмування", "Кулінарія" };
             ViewBag.Categories = new SelectList(categories, "Category");
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(PostDTO post)
+        [HttpPost, ValidateInput(false)]
+        public ActionResult Create(PostDTO post, HttpPostedFileBase PostImage)
         {
+            //FileInfo fileInfo = new FileInfo(PostImage.FileName);
+            //string newstring = Guid.NewGuid().ToString("N") + fileInfo.Extension;
+
+            //PostImage.SaveAs(Server.MapPath("~/Content/Upload/" + newstring));
+
+            //post.PostImage = newstring;
+
+
             repo.Create(post);
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpGet, ]
         public ActionResult Edit(int? id)
         {
-            var posts = repo.GetPosts();
-            var categories = from u in posts select u.Category;
-            ViewBag.Categories =new SelectList( categories,"Category");
+            
 
             if (id == null)
             {
@@ -72,7 +81,7 @@ namespace ProgerBlog.WEB.Controllers
         }
 
         // POST: Admin/Edit/5
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Edit(PostDTO post)
         {
             repo.Update(post);

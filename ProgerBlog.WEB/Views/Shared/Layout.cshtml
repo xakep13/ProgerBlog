@@ -6,6 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/ckeditor")
+    @Scripts.Render("~/bundles/ckfinder")
     <style type="text/css">
         TABLE {
             border-collapse: collapse; /* Убираем двойные линии между ячейками */
@@ -48,7 +50,7 @@
                         <li>
                             <a>Привет @User.Identity.Name</a>
                         </li>
-                        <li>@Html.ActionLink("Вихід", "Logout", "Account")</li>
+                        <li>@Html.ActionLink("Вихід", "Logoff", "Account")</li>
                     }
 
                 </ul>

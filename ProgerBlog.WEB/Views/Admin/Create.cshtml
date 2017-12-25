@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
+
+
 <h2>Новий запис</h2>
 
 @using (Html.BeginForm())
@@ -30,10 +32,11 @@
     {
         @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }  })
     }
-    <br /><br />
+         <br /><br />
     @Html.LabelFor(model => model.Text, "Текст")
+   
     <br />
-    @Html.EditorFor(model => model.Text)
+    @Html.TextAreaFor(model => model.Text, new { @class = "ckeditor" })
     <br /><br />
     @Html.LabelFor(model => model.Date, "Дата")
     <br />

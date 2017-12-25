@@ -14,12 +14,12 @@
         <p>
             @Html.LabelFor(m => m.Title, "Заголовок")
             <br />
-            @Html.TextAreaFor(m => m.Title, 10, 20, null)           
+            @Html.TextAreaFor(m => m.Title)           
         </p>
         <p>
             @Html.LabelFor(m => m.SubTitle, "Підзаголовок")
             <br />
-            @Html.TextAreaFor(m => m.SubTitle, 10, 20, null)
+            @Html.TextAreaFor(m => m.SubTitle)
         </p>
         <p>
             @Html.LabelFor(m => m.Category, "Категорія")
@@ -44,13 +44,13 @@
         <p>
             @Html.LabelFor(m => m.Text, "Текст")
             <br />
-            @Html.TextAreaFor(m => m.Text, 10,50,null)
+           @Html.TextAreaFor(m => m.Text, new { @class = "ckeditor" })
         </p>
 
         <p>
             @Html.LabelFor(m => m.Date, "Дата")
             <br />
-            @Html.EditorFor(m => m.Date)
+            @Html.EditorFor(m => m.Date, new {@class ="Date" })
         </p>
 
         <p><input type="submit" value="Відправити" /></p>
