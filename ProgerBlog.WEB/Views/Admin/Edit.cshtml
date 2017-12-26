@@ -3,7 +3,9 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 @model ProgerBlog.BLL.DTO.PostDTO
-
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+</script>
 
 <h2>Пост № @Model.Id</h2>
 
@@ -50,7 +52,7 @@
         <p>
             @Html.LabelFor(m => m.Date, "Дата")
             <br />
-            @Html.EditorFor(m => m.Date, new {@class ="Date" })
+            @Html.EditorFor(m => m.Date, new { @class = "datepicker" })
         </p>
 
         <p><input type="submit" value="Відправити" /></p>

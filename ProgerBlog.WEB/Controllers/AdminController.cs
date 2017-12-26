@@ -15,14 +15,20 @@ namespace ProgerBlog.WEB.Controllers
     {
 
         IPostService repo;
+        List<string> categories;
+        
 
         public AdminController(IPostService postService)
         {
             repo = postService;
-            var categories = from u in repo.GetPosts() select u.Category;
-            ViewBag.Categories = new SelectList(categories, "Category");
+            categories = new List<string>();
+
+            categories.Add("Програмування");
+            categories.Add("Кулінарія");
+
+
         }
-        
+
         public ActionResult Index()
         {
             var posts = repo.GetPosts();
@@ -35,9 +41,9 @@ namespace ProgerBlog.WEB.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var posts = repo.GetPosts();
-            var categories = new List<string> { "Програмування", "Кулінарія" };
-            ViewBag.Categories = new SelectList(categories, "Category");
+            var cat = new SelectList(categories, "Category");
+           
+            ViewBag.Categories = cat;
             return View();
         }
 
@@ -57,10 +63,12 @@ namespace ProgerBlog.WEB.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet, ]
+        [HttpGet ]
         public ActionResult Edit(int? id)
         {
-            
+            var cat = new SelectList(categories, "Category");
+
+            ViewBag.Categories = cat;
 
             if (id == null)
             {
@@ -109,6 +117,13 @@ namespace ProgerBlog.WEB.Controllers
                 return HttpNotFound();
             }
             repo.Delete(post.Id);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public ActionResult AddCategory(string newcategory)
+        {
+            categories.Add(newcategory);
+            
             return RedirectToAction("Index");
         }
     }

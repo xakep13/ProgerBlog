@@ -3,8 +3,26 @@
 @{
     Layout = "~/Views/Shared/Layout.cshtml";
 }
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<script src="~/Content/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    $(function () {
 
+        $('#Brows').click(function () {
+            var ckfinder = new CKFinder();
+            
+            ckfinder.popup();
+        });
+    })
 
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        CKEDITOR.replace("ckeditor", { customConfig: "/Content/ckeditor/config.js" });
+    })
+</script>
 
 <h2>Новий запис</h2>
 
@@ -21,6 +39,7 @@
     @Html.LabelFor(m => m.Category, "Категорія")
     <br />
      @Html.DropDownListFor(m => m.Category, (SelectList)ViewBag.Categories)
+    
     <br /><br />
     @Html.LabelFor(model => model.Author, "Автор")
     <br />
@@ -33,6 +52,12 @@
         @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }  })
     }
          <br /><br />
+        <div class="editor-field">
+           
+           
+            <input type="button" id="Brows" name="Brows" value="Brows images" />
+        </div>
+        <br /><br />
     @Html.LabelFor(model => model.Text, "Текст")
    
     <br />
