@@ -14,7 +14,10 @@ namespace ProgerBlog.BLL.Services
     public class PostService : IPostService
     {
         IUnitOfWork Database { get; set; }
+        static List<string> categories = new List<string> { "Кулінарія","Програмування"};
+
         
+
 
         public PostService(IUnitOfWork uow)
         {
@@ -24,6 +27,14 @@ namespace ProgerBlog.BLL.Services
         public void Dispose()
         {
             Database.Dispose(); 
+        }
+        public List<string> GetCategories()
+        {
+            return categories;
+        }
+        public void AddCategories(string s)
+        {
+            categories.Add(s);
         }
 
         public PostDTO GetPost(int? id)

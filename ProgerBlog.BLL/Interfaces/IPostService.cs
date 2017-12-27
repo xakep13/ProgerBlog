@@ -14,6 +14,8 @@ namespace ProgerBlog.BLL.Interfaces
         void Delete(int? id_item);
         PostDTO GetPost(int? id);
         IEnumerable<PostDTO> GetPosts();
+        List<string> GetCategories();
+        void AddCategories(string s);
         void Dispose();
     }
 }
