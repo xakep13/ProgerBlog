@@ -3,69 +3,69 @@
 @{
     Layout = "~/Views/Shared/Layout.cshtml";
 }
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <script src="~/Content/ckfinder/ckfinder.js"></script>
 <script type="text/javascript">
-    $(function () {
-
-        $('#Brows').click(function () {
-            var ckfinder = new CKFinder();
-            
-            ckfinder.popup();
-        });
-    })
-
+    $(function () { CKEDITOR.replace("ckeditor", { customConfig: "/Content/ckeditor/config.js" });})
 </script>
-<script type="text/javascript">
 
-    $(function () {
-        CKEDITOR.replace("ckeditor", { customConfig: "/Content/ckeditor/config.js" });
-    })
-</script>
+
+
+
 
 <h2>Новий запис</h2>
 
 @using (Html.BeginForm())
 {
-    @Html.LabelFor(model => model.Title, "Заголовок")
-    <br />
-    @Html.EditorFor(model => model.Title)
-    <br /><br />
-    @Html.LabelFor(model => model.SubTitle, "Підзаголовок")
-    <br />
-    @Html.EditorFor(model => model.SubTitle)
-    <br /><br />
-    @Html.LabelFor(m => m.Category, "Категорія")
-    <br />
-     @Html.DropDownListFor(m => m.Category, (SelectList)ViewBag.Categories)
-    
-    <br /><br />
-    @Html.LabelFor(model => model.Author, "Автор")
-    <br />
-    if(User.IsInRole("admin"))
-    {
-        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name } })
-    }
-    else
-    {
-        @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }  })
-    }
-         <br /><br />
-        <div class="editor-field">
-           
-           
-            <input type="button" id="Brows" name="Brows" value="Brows images" />
-        </div>
-        <br /><br />
-    @Html.LabelFor(model => model.Text, "Текст")
-   
-    <br />
-    @Html.TextAreaFor(model => model.Text, new { @class = "ckeditor" })
-    <br /><br />
-    @Html.LabelFor(model => model.Date, "Дата")
-    <br />
-    @Html.EditorFor(model => model.Date)
-    <br /><br />
-    <input type="submit" value="Добавити" />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, "Заголовок")
+       
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SubTitle, "Підзаголовок")
+       
+        @Html.TextBoxFor(model => model.SubTitle, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Text, "Текст")
+        
+        @Html.TextAreaFor(model => model.Text, new { @class = "ckeditor" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Category, "Категорія")
+        
+        @Html.DropDownListFor(m => m.Category, (SelectList)ViewBag.Categories, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Author, "Автор")
+
+        @if(User.IsInRole("admin"))
+        {
+            @Html.TextBoxFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name }, @class = "form-control" })
+        }
+        else
+        {
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }, @class = "form-control" })
+        }
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Date, "Дата")
+       
+        @Html.TextBoxFor(model => model.Date, new { @id = "datepicker", @class = "datepicker form-control" })
+    </div>
+       
+        <input type="submit" class="btn btn-primary" value="Добавити" />
+        @Html.ActionLink("Відміна", "Index", null, new { @class = "btn btn-default" })
 }
+  
+        
+
+       
+        <script type="text/javascript">
+            $("#datepicker").datepicker();
+        </script>

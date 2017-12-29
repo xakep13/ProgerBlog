@@ -144,3 +144,4 @@ C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\CKSource.FileS
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\NLog.xml
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\System.Net.Http.xml
 C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\System.Net.Http.WebRequest.xml
+C:\Users\unopcpavilion\Source\Repos\ProgerBlog\ProgerBlog.WEB\bin\LogicalCK.dll

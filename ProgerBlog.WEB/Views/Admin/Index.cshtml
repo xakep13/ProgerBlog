@@ -22,105 +22,110 @@
 <p>
     @Html.ActionLink("Додати запис", "Create")
 </p>
-<table>
-    <tr>
-        <th>Заголовок</th>
-        <th>Підзаголовок</th>
-        <th>Категорія</th>
-        <th>Автор</th>
-        
-        <th>Дата</th>
-        <th></th>
-    </tr>
-    @if (User.IsInRole("admin"))
-    {
-        foreach (var item in Model)
+<div class="panel panel-primary">
+    <table class="table table-striped">
+        <tr>
+            <div class="panel-heading">
+                <th>Заголовок</th>
+                <th>Підзаголовок</th>
+                <th>Категорія</th>
+                <th>Автор</th>
+                <th>Дата</th>
+                <th></th>
+             </div>
+</tr>
+        @if (User.IsInRole("admin"))
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink("Редагувати", "Edit", new { id = item.Id }) 
-                    @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-
-        }
-    }
-    else
-    {
-        foreach (var item in Model)
-        {
-            if (item.Author == User.Identity.Name)
+            foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SubTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
-                    @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
+                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+
             }
-         }
-    }
-</table>
-@using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post))
-{
-    <button type="button" class="btn " data-toggle="modal" data-target="#myModal">Додати категорію</button>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                if (item.Author == User.Identity.Name)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SubTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Редагувати", "Edit", new { id = item.Id })
+                            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+</div>
+
+
+    @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post))
+    {
+        <button type="button" class="btn " data-toggle="modal" data-target="#myModal">Додати категорію</button>
 
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                </div>
-                <div class="modal-body">
-                    @Html.TextBox("newcategory", "")
-                    <input type="submit"  value="Додати" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                    
+                    </div>
+                    <div class="modal-body">
+                        @Html.TextBox("newcategory", "")
+                        <input type="submit" value="Додати" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
 
+
+                    </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-}
+    }
 

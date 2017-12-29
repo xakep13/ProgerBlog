@@ -3,58 +3,65 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 @model ProgerBlog.BLL.DTO.PostDTO
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<script src="~/Content/ckfinder/ckfinder.js"></script>
 <script type="text/javascript">
-    $('.datepicker').datepicker();
+    $(function () { CKEDITOR.replace("ckeditor", { customConfig: "/Content/ckeditor/config.js" }); })
 </script>
 
 <h2>Пост № @Model.Id</h2>
 
 @using (Html.BeginForm("Edit", "Admin", FormMethod.Post))
 {
-    <fieldset>
+    
+
         @Html.HiddenFor(m => m.Id)
-        <p>
-            @Html.LabelFor(m => m.Title, "Заголовок")
-            <br />
-            @Html.TextAreaFor(m => m.Title)           
-        </p>
-        <p>
-            @Html.LabelFor(m => m.SubTitle, "Підзаголовок")
-            <br />
-            @Html.TextAreaFor(m => m.SubTitle)
-        </p>
-        <p>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, "Заголовок")
+
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubTitle, "Підзаголовок")
+
+            @Html.TextBoxFor(model => model.SubTitle, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, "Текст")
+
+            @Html.TextAreaFor(model => model.Text, new { @class = "ckeditor" })
+        </div>
+        <div class="form-group">
             @Html.LabelFor(m => m.Category, "Категорія")
-            <br />
-            @Html.DropDownListFor(m=>m.Category, (SelectList)ViewBag.Categories)
-        </p>
-        <p>
+           
+            @Html.DropDownListFor(m => m.Category, (SelectList)ViewBag.Categories, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Author, "Автор")
 
-
-            @if(User.IsInRole("admin"))
+            @if (User.IsInRole("admin"))
             {
-            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name } })
+                @Html.TextBoxFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name }, @class = "form-control" })
             }
             else
             {
-            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }, @class = "form-control" })
             }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, "Дата")
 
+            @Html.TextBoxFor(model => model.Date, new { @id = "datepicker", @class = "datepicker form-control" })
+        </div>
 
-           
-        </p>
-        <p>
-            @Html.LabelFor(m => m.Text, "Текст")
-            <br />
-           @Html.TextAreaFor(m => m.Text, new { @class = "ckeditor" })
-        </p>
+        <input type="submit" class="btn btn-primary" value="Зберегти" />
+        @Html.ActionLink("Відміна", "Index", null, new { @class = "btn btn-default" })
 
-        <p>
-            @Html.LabelFor(m => m.Date, "Дата")
-            <br />
-            @Html.EditorFor(m => m.Date, new { @class = "datepicker" })
-        </p>
-
-        <p><input type="submit" value="Відправити" /></p>
-    </fieldset>
 }
+
+<script type="text/javascript">
+    $("#datepicker").datepicker();
+</script>

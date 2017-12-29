@@ -27,11 +27,7 @@ namespace ProgerBlog.WEB
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
-                      "~/Scripts/ckeditor/ckeditor.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/ckfinder").Include(
-                      "~/Scripts/ckfinder/ckfinder.js"));
+           
 
         }
     }

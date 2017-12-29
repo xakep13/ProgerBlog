@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/ckeditor")
+   
     
     <style type="text/css">
         TABLE {
@@ -40,6 +40,9 @@
                     
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Адмінпанель","Index","Admin")</li>
+                    <li>@Html.ActionLink("Юзери", "Index", "User")</li>
+
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Увійти", "Login", "Account")</li>
@@ -48,7 +51,7 @@
                     else
                     {
                         <li>
-                            <a>Привет @User.Identity.Name</a>
+                            <a>Привiт, @User.Identity.Name</a>
                         </li>
                         <li>@Html.ActionLink("Вихід", "Logoff", "Account")</li>
                     }
