@@ -54,8 +54,7 @@ namespace ProgerBlog.WEB.Controllers
         {        
             var posts = Mapper.Map<IEnumerable<PostDTO>, List<PostViewModel>>(postService.GetPosts());
 
-            ViewBag.Categories = from u in posts select u.Category;
-            
+            ViewBag.Categories = new SelectList(postService.GetCategories(), "Category");
 
             return View(posts);
         }

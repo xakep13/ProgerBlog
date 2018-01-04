@@ -45,11 +45,11 @@
 
         @if(User.IsInRole("admin"))
         {
-            @Html.TextBoxFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name }, @class = "form-control" })
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name , @class = "form-control" } })
         }
         else
         {
-            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly" }, @class = "form-control" })
+            @Html.EditorFor(model => model.Author, new { htmlAttributes = new { @Value = User.Identity.Name, @readonly = "readonly", @class = "form-control" } })
         }
     </div>
 

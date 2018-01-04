@@ -16,7 +16,7 @@ namespace ProgerBlog.BLL.DTO
         public string Author { get; set; }
         public string Category { get; set; }
 
-        [UIHint("DateTimePicker")]
+       
         public DateTime Date { get; set; }
     }
 }

@@ -5,55 +5,59 @@
 
 
 <h1>Список Юзерів</h1>
-<br /><br />
-
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>IsDelete</th>
-        <th></th>
-        <th></th>
-    </tr>
 
 
-    @foreach (var item in Model)
-    {
+<div class="panel panel-primary">
+    <table class="table table-striped">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
+            <div class="panel-heading">
+                <th>Name</th>
+                <th>Role</th>
+                <th>Email</th>
+                <th>IsDelete</th>
+                <th></th>
+                <th></th>
+            </div>
+</tr>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDelete)
-            </td>
 
-            <td>
-                @if (!User.Identity.Name.Equals(item.Email))
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDelete)
+                </td>
+
+                <td>
+                    @if (!User.Identity.Name.Equals(item.Email))
                 {
                     if (item.IsDelete)
                     {
-                        @Html.ActionLink("Відновити", "Delete", new { id = item.Id })
+                            @Html.ActionLink("Відновити", "Delete", new { id = item.Id })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+                        }
                     }
-                    else
-                    {
-                        @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
-                    }
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Редвгувати", "Edit", new { id = item.Id})
-            </td>
-        </tr>
+                </td>
+                <td>
+                    @Html.ActionLink("Редвгувати", "Edit", new { id = item.Id })
+                </td>
+            </tr>
 
-    }
+        }
 
 
-</table>
+    </table>
+</div>

@@ -43,11 +43,11 @@
 
             <br />
 
-                @foreach (string s in ViewBag.Categories)
+                @foreach (System.Web.Mvc.SelectListItem s in ViewBag.Categories)
                 {
                     <div class="sidebar-module">
 
-                        @Ajax.ActionLink(s, "PostCategory", new { category = s.ToString() }, new AjaxOptions { UpdateTargetId = "results" , OnFailure = "OnFailure" })
+                        @Ajax.ActionLink(s.Text, "PostCategory", new { category = s.Text }, new AjaxOptions { UpdateTargetId = "results" , OnFailure = "OnFailure" })
                         
                     </div>
                 }
