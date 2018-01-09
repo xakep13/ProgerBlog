@@ -44,7 +44,7 @@ namespace ProgerBlog.WEB.Controllers
             return View();
         }
 
-        [HttpPost, ValidateInput(false)]
+        [HttpPost]
         public ActionResult Create(PostEditModel post)
         {
             PostDTO postDto = Mapper.Map<PostEditModel, PostDTO>(post);
@@ -68,7 +68,7 @@ namespace ProgerBlog.WEB.Controllers
 
             PostDTO postDto = repo.GetPost(b);
 
-            PostEditModel post = Mapper.Map<PostDTO, PostEditModel>(postDto);
+            PostEditModel post = Mapper.Map<PostDTO,PostEditModel>(postDto);
 
             if (post != null)
             {
@@ -78,7 +78,7 @@ namespace ProgerBlog.WEB.Controllers
         }
 
         // POST: Admin/Edit/5
-        [HttpPost, ValidateInput(false)]
+        [HttpPost]
         public ActionResult Edit(PostEditModel post)
         {
             PostDTO postDto = Mapper.Map<PostEditModel, PostDTO>(post);
