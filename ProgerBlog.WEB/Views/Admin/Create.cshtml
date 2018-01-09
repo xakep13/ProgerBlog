@@ -16,6 +16,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.ValidationSummary(true)
     <div class="form-group">
         @Html.LabelFor(model => model.Title, "Заголовок")
        

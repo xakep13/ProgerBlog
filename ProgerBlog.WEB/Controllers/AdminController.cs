@@ -66,9 +66,9 @@ namespace ProgerBlog.WEB.Controllers
             int b = (int)id;
             
 
-            PostDTO post = repo.GetPost(b);
+            PostDTO postDto = repo.GetPost(b);
 
-            
+            PostEditModel post = Mapper.Map<PostDTO, PostEditModel>(postDto);
 
             if (post != null)
             {

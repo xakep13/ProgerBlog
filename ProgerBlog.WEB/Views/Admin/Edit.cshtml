@@ -3,14 +3,13 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 @model ProgerBlog.WEB.Models.PostEditModel
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="~/Content/ckeditor/ckeditor.js"></script>
 <script src="~/Content/ckfinder/ckfinder.js"></script>
-<script type="text/javascript">
-    $(function () { CKEDITOR.replace("ckeditor", { customConfig: "/Content/ckeditor/config.js" }); })
-</script>
+
 
 <h2>Пост № @Model.Id</h2>
 
@@ -63,5 +62,5 @@
 }
 
 <script type="text/javascript">
-    $("#datepicker").datepicker();
+    $("#datepicker").datepicker({ dateFormat: 'dd.mm.yy' });
 </script>
