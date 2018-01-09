@@ -17,6 +17,9 @@ namespace ProgerBlog.WEB.App_Start
             {
                 cfg.CreateMap<PostDTO, PostViewModel>();
 
+                cfg.CreateMap<PostDTO, PostEditModel>();
+                cfg.CreateMap<PostEditModel, PostDTO>();
+
                 cfg.CreateMap<UserDTO, EditModel>();
                 cfg.CreateMap<EditModel, UserDTO>();
             }); 

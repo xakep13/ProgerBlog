@@ -255,6 +255,7 @@
     </Compile>
     <Compile Include="Models\EditModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\PostEditModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,6 +1,8 @@
-﻿using ProgerBlog.BLL.DTO;
+﻿using AutoMapper;
+using ProgerBlog.BLL.DTO;
 using ProgerBlog.BLL.Interfaces;
 using ProgerBlog.BLL.Services;
+using ProgerBlog.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,17 +45,11 @@ namespace ProgerBlog.WEB.Controllers
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Create(PostDTO post, HttpPostedFileBase PostImage)
+        public ActionResult Create(PostEditModel post)
         {
-            //FileInfo fileInfo = new FileInfo(PostImage.FileName);
-            //string newstring = Guid.NewGuid().ToString("N") + fileInfo.Extension;
+            PostDTO postDto = Mapper.Map<PostEditModel, PostDTO>(post);
 
-            //PostImage.SaveAs(Server.MapPath("~/Content/Upload/" + newstring));
-
-            //post.PostImage = newstring;
-
-
-            repo.Create(post);
+            repo.Create(postDto);
 
             return RedirectToAction("Index");
         }
@@ -83,9 +79,11 @@ namespace ProgerBlog.WEB.Controllers
 
         // POST: Admin/Edit/5
         [HttpPost, ValidateInput(false)]
-        public ActionResult Edit(PostDTO post)
+        public ActionResult Edit(PostEditModel post)
         {
-            repo.Update(post);
+            PostDTO postDto = Mapper.Map<PostEditModel, PostDTO>(post);
+
+            repo.Update(postDto);
 
             return RedirectToAction("Index");
         }
